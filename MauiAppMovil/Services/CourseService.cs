@@ -1,22 +1,4 @@
-﻿public async Task<HttpResponseMessage> UpdateCourseWithImageAsync(Course course, Stream? imageStream = null, string? imageName = null)
-{
-    var content = new MultipartFormDataContent();
-
-    content.Add(new StringContent(course.Name), "Name");
-    content.Add(new StringContent(course.Description), "Description");
-    content.Add(new StringContent(course.Schedule), "Schedule");
-    content.Add(new StringContent(course.Professor), "Professor");
-
-    if (imageStream != null && imageName != null)
-    {
-        var fileContent = new StreamContent(imageStream);
-        fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
-        content.Add(fileContent, "File", imageName);
-    }
-
-    return await _httpClient.PutAsync($"{baseUrl}/{course.Id}", content);
-}
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using MauiAppMovil.Models;
 
@@ -32,7 +14,7 @@ namespace MauiAppMovil.Services
             _httpClient = new HttpClient();
         }
 
-        // get all courses
+        // Obtener todos los cursos
         public async Task<List<Course>> GetCoursesAsync()
         {
             var response = await _httpClient.GetAsync(baseUrl);
@@ -40,7 +22,7 @@ namespace MauiAppMovil.Services
             return await response.Content.ReadFromJsonAsync<List<Course>>() ?? new();
         }
 
-        // Create course without image multipart/form-data
+        // Crear curso con imagen (multipart/form-data)
         public async Task<HttpResponseMessage> CreateCourseWithResponseAsync(Course course, Stream imageStream, string imageName)
         {
             var content = new MultipartFormDataContent();
@@ -78,7 +60,7 @@ namespace MauiAppMovil.Services
         }
 
 
-        // delete course
+        // Eliminar curso
         public async Task<HttpResponseMessage> DeleteCourseAsync(int id)
         {
             return await _httpClient.DeleteAsync($"{baseUrl}/{id}");
