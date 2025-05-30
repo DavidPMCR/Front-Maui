@@ -92,7 +92,7 @@ namespace MauiAppMovil.Views
 
             if (response.IsSuccessStatusCode)
             {
-                await DisplayAlert(" xito", _editingCourse.Id == 0 ? "Curso creado." : "Curso actualizado.", "OK");
+                await DisplayAlert("Éxito", _editingCourse.Id == 0 ? "Curso creado." : "Curso actualizado.", "OK");
                 await Navigation.PopAsync();
             }
             else
