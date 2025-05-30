@@ -16,8 +16,7 @@ namespace MauiAppMovil.Models
         public string ImageUrl { get; set; }
 
         // public string FullImageUrl => $"http://10.0.2.2:5275:5275{ImageUrl ?? ""}";
-        public string FullImageUrl => $"http://192.168.100.6:5275{ImageUrl ?? ""}";
-
+        public string FullImageUrl => $"{AppConstants.BaseUrl}{ImageUrl ?? ""}";
 
     }
 }
