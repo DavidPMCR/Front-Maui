@@ -1,6 +1,6 @@
-﻿using System.Net.Http.Headers;
+﻿using MauiAppMovil.Models;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using MauiAppMovil.Models;
 
 namespace MauiAppMovil.Services
 {
@@ -32,14 +32,22 @@ namespace MauiAppMovil.Services
             content.Add(new StringContent(course.Schedule), "Schedule");
             content.Add(new StringContent(course.Professor), "Professor");
 
+            if (imageStream == null || string.IsNullOrEmpty(imageName))
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent("Image stream or image name cannot be null or empty.")
+                };
+            }
+
             var fileContent = new StreamContent(imageStream);
-            fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/png"); // Ajusta si usas .jpg, etc.
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
             content.Add(fileContent, "File", imageName);
 
             return await _httpClient.PostAsync(baseUrl, content);
         }
 
-        //update course with image (multipart/form-data)
+        // Actualizar curso con imagen (multipart/form-data)
         public async Task<HttpResponseMessage> UpdateCourseWithImageAsync(Course course, Stream? imageStream = null, string? imageName = null)
         {
             var content = new MultipartFormDataContent();
