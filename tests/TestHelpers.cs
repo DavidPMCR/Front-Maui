@@ -1,5 +1,4 @@
 ﻿using MauiAppMovil.Services;
-using System.Reflection;
 
 namespace tests
 {
@@ -11,6 +10,13 @@ namespace tests
         public static CourseService GetCourseService()
         {
             return new CourseService();
+        }
+
+        public static void SetApiBaseUrlToLocalhost()
+        {
+            // Set the API base URL to localhost for testing purposes
+            AppConstants.ApiBaseUrl = "http://localhost:5275/api";
+            AppConstants.BaseUrl = "http://localhost:5275";
         }
 
         public static Stream GetLocalImageStream()

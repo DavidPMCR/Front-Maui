@@ -10,6 +10,7 @@ namespace tests
 
         public DeleteCourseTest()
         {
+            TestHelpers.SetApiBaseUrlToLocalhost(); // Set the API base URL to localhost for testing
             _courseService = TestHelpers.GetCourseService();
             _testImageStream = TestHelpers.GetLocalImageStream();
         }
@@ -60,7 +61,7 @@ namespace tests
 
             // Act: Call the method to delete the course
             var result = await _courseService.DeleteCourseAsync(nonExistentId);
-            
+
             // Assert: Verify that the response is NotFound
             Assert.Equal(System.Net.HttpStatusCode.NotFound, result.StatusCode);
         }

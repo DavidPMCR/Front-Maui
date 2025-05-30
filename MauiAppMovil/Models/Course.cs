@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MauiAppMovil.Services;
 
 namespace MauiAppMovil.Models
 {
@@ -14,8 +10,6 @@ namespace MauiAppMovil.Models
         public string Schedule { get; set; } = string.Empty;
         public string Professor { get; set; } = string.Empty;
         public string ImageUrl { get; set; }
-
-        // public string FullImageUrl => $"http://10.0.2.2:5275:5275{ImageUrl ?? ""}";
         public string FullImageUrl => $"{AppConstants.BaseUrl}{ImageUrl ?? ""}";
 
     }

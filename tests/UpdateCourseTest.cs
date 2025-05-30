@@ -10,6 +10,7 @@ namespace tests
 
         public UpdateCourseTest()
         {
+            TestHelpers.SetApiBaseUrlToLocalhost(); // Set the API base URL to localhost for testing
             _courseService = TestHelpers.GetCourseService();
             _testImageStream = TestHelpers.GetLocalImageStream();
         }
@@ -18,7 +19,7 @@ namespace tests
         public async Task UpdateCourse_HappyPath_ReturnsIsSuccessStatusCode()
         {
             // Arrange: Get the list of courses
-            var courses = await _courseService.GetCoursesAsync(); 
+            var courses = await _courseService.GetCoursesAsync();
             using var imageStream = _testImageStream; // Use the test image stream
             var imageName = TestHelpers.ImageName; // Name for the test image
 
@@ -54,7 +55,7 @@ namespace tests
 
             // Act: Call the method to update the course
             var result = await _courseService.UpdateCourseWithImageAsync(courseToUpdate, imageStream, imageName);
-            
+
             // Assert: Check if the response is successful
             Assert.True(result.IsSuccessStatusCode);
         }
@@ -76,7 +77,7 @@ namespace tests
             using var imageStream = _testImageStream; // Use the test image stream
             var imageName = TestHelpers.ImageName; // Name for the test image
             var result = await _courseService.UpdateCourseWithImageAsync(courseToUpdate, imageStream, imageName);
-            
+
             // Assert: Check if the response is NotFound
             Assert.False(result.IsSuccessStatusCode);
             Assert.Equal(System.Net.HttpStatusCode.NotFound, result.StatusCode);
@@ -99,7 +100,7 @@ namespace tests
             using var imageStream = _testImageStream; // Use the test image stream
             var imageName = TestHelpers.ImageName; // Name for the test image
             var result = await _courseService.UpdateCourseWithImageAsync(courseToUpdate, imageStream, imageName);
-            
+
             // Assert: Check if the response is BadRequest
             Assert.False(result.IsSuccessStatusCode);
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, result.StatusCode);
@@ -122,7 +123,7 @@ namespace tests
             using var imageStream = _testImageStream; // Use the test image stream
             var imageName = TestHelpers.ImageName; // Name for the test image
             var result = await _courseService.UpdateCourseWithImageAsync(courseToUpdate, imageStream, imageName);
-            
+
             // Assert: Check if the response is BadRequest
             Assert.False(result.IsSuccessStatusCode);
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, result.StatusCode);
@@ -195,7 +196,7 @@ namespace tests
             using var imageStream = _testImageStream; // Use the test image stream
             var imageName = TestHelpers.ImageName; // Name for the test image
             var result = await _courseService.UpdateCourseWithImageAsync(courseToUpdate, imageStream, imageName);
-            
+
             // Assert: Check if the response is BadRequest
             Assert.False(result.IsSuccessStatusCode);
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, result.StatusCode);
@@ -218,7 +219,7 @@ namespace tests
             using var imageStream = _testImageStream; // Use the test image stream
             var imageName = TestHelpers.ImageName; // Name for the test image
             var result = await _courseService.UpdateCourseWithImageAsync(courseToUpdate, imageStream, imageName);
-            
+
             // Assert: Check if the response is BadRequest
             Assert.False(result.IsSuccessStatusCode);
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, result.StatusCode);

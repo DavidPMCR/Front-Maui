@@ -11,6 +11,7 @@ namespace tests
 
         public CreateCourseTest()
         {
+            TestHelpers.SetApiBaseUrlToLocalhost(); // Set the API base URL to localhost for testing
             _courseService = TestHelpers.GetCourseService();
             _testImageStream = TestHelpers.GetLocalImageStream();
         }
@@ -52,7 +53,7 @@ namespace tests
             using var imageStream = _testImageStream; // Use the test image stream
             var imageName = TestHelpers.ImageName; // Name for the test image
             var result = await _courseService.CreateCourseWithResponseAsync(newCourse, imageStream, imageName);
-            
+
             // Assert: Check if the response is BadRequest
             Assert.False(result.IsSuccessStatusCode);
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, result.StatusCode);
@@ -69,12 +70,12 @@ namespace tests
                 Schedule = "Monday to Friday, 10:00 AM - 12:00 PM",
                 Professor = "John Doe"
             };
-            
+
             // Act: Call the method to create the course
             using var imageStream = _testImageStream; // Use the test image stream
             var imageName = TestHelpers.ImageName; // Name for the test image
             var result = await _courseService.CreateCourseWithResponseAsync(newCourse, imageStream, imageName);
-            
+
             // Assert: Check if the response is BadRequest
             Assert.False(result.IsSuccessStatusCode);
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, result.StatusCode);
@@ -95,8 +96,10 @@ namespace tests
             // Act: Call the method to create the course with a null image stream
             using var imageStream = null as Stream; // Invalid image stream
             var imageName = TestHelpers.ImageName; // Name for the test image
+#pragma warning disable CS8604 // Posible Null Reference Argument
             var result = await _courseService.CreateCourseWithResponseAsync(newCourse, imageStream, imageName);
-            
+#pragma warning restore CS8604 // Posible Null Reference Argument
+
             // Assert: Check if the response is BadRequest
             Assert.False(result.IsSuccessStatusCode);
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, result.StatusCode);
@@ -118,7 +121,7 @@ namespace tests
             using var imageStream = _testImageStream; // Use the test image stream
             var imageName = TestHelpers.ImageName; // Name for the test image
             var result = await _courseService.CreateCourseWithResponseAsync(newCourse, imageStream, imageName);
-            
+
             // Assert: Check if the response is BadRequest
             Assert.False(result.IsSuccessStatusCode);
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, result.StatusCode);
@@ -140,7 +143,7 @@ namespace tests
             using var imageStream = _testImageStream; // Use the test image stream
             var imageName = TestHelpers.ImageName; // Name for the test image
             var result = await _courseService.CreateCourseWithResponseAsync(newCourse, imageStream, imageName);
-            
+
             // Assert: Check if the response is BadRequest
             Assert.False(result.IsSuccessStatusCode);
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, result.StatusCode);

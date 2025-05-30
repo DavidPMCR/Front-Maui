@@ -9,11 +9,11 @@ namespace MauiAppMovil.Views
         private readonly Course _editingCourse;
         private readonly CourseService _courseService = new();
 
-        #pragma warning disable CS8618
-        #pragma warning disable CS8625
+#pragma warning disable CS8618
+#pragma warning disable CS8625
         public CourseFormPage(Course course = null)
-        #pragma warning restore CS8625
-        #pragma warning restore CS8618
+#pragma warning restore CS8625
+#pragma warning restore CS8618
         {
             InitializeComponent();
 
@@ -36,13 +36,13 @@ namespace MauiAppMovil.Views
 
         private async void OnPickImage(object sender, EventArgs e)
         {
-            #pragma warning disable CS8601
+#pragma warning disable CS8601
             _selectedImage = await FilePicker.PickAsync(new PickOptions
             {
                 FileTypes = FilePickerFileType.Images,
                 PickerTitle = "Selecciona una imagen"
             });
-            #pragma warning restore CS8601
+#pragma warning restore CS8601
 
             if (_selectedImage != null)
             {
@@ -52,7 +52,7 @@ namespace MauiAppMovil.Views
 
         private async void OnSaveCourse(object sender, EventArgs e)
         {
-            // Validaciones
+            // Validations
             if (string.IsNullOrWhiteSpace(nameEntry.Text) ||
                 string.IsNullOrWhiteSpace(descEntry.Text) ||
                 string.IsNullOrWhiteSpace(schedEntry.Text) ||
@@ -62,7 +62,7 @@ namespace MauiAppMovil.Views
                 return;
             }
 
-            // Asignar valores al objeto
+            // Assign values to the course object
             _editingCourse.Name = nameEntry.Text;
             _editingCourse.Description = descEntry.Text;
             _editingCourse.Schedule = schedEntry.Text;

@@ -9,6 +9,7 @@ namespace tests
 
         public ReadCourseTest()
         {
+            TestHelpers.SetApiBaseUrlToLocalhost(); // Set the API base URL to localhost for testing
             _courseService = TestHelpers.GetCourseService();
         }
 

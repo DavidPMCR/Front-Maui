@@ -9,7 +9,7 @@
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new NavigationPage(new Views.CoursePage())); //Route to CoursePage
+            return new Window(new NavigationPage(new Views.CoursePage())); //ruta para abrir los cursos directamente
 
         }
     }
