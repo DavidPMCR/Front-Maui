@@ -1,4 +1,5 @@
 ﻿using MauiAppMovil.Models;
+using MauiAppMovil.Services;
 using MauiAppMovil.ViewModels;
 
 namespace MauiAppMovil.Views
@@ -13,14 +14,14 @@ namespace MauiAppMovil.Views
 
             Loaded += async (s, e) =>
             {
-                await ViewModel.LoadCoursesAsync(); // ← solo se ejecuta la primera vez
+                await ViewModel.LoadCoursesAsync(); // ← Only once when the page is loaded
             };
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await ViewModel.LoadCoursesAsync(); // ← esto se ejecuta cada vez que regresas
+            await ViewModel.LoadCoursesAsync(); // ← This ensures the list is refreshed every time the page appears
         }
 
         private async void OnAddCourseClicked(object sender, EventArgs e)
@@ -41,7 +42,7 @@ namespace MauiAppMovil.Views
                 if (response.IsSuccessStatusCode)
                 {
                     await DisplayAlert("Eliminado", "Curso eliminado correctamente", "OK");
-                    await ViewModel.LoadCoursesAsync(); // refresca la lista
+                    await ViewModel.LoadCoursesAsync(); // Refresh the list after deletion
                 }
                 else
                 {
@@ -54,7 +55,7 @@ namespace MauiAppMovil.Views
         {
             if (sender is Button button && button.CommandParameter is Course course)
             {
-                await Navigation.PushAsync(new CourseFormPage(course)); // ← Aún por crear
+                await Navigation.PushAsync(new CourseFormPage(course)); // ← Send the course to edit
             }
         }
     }
