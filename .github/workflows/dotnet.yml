@@ -1,0 +1,55 @@
+# .github/workflows/dotnet-maui.yml
+name: .NET MAUI + Backend Integration
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main", "dev" ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clonar backend
+        uses: actions/checkout@v4
+        with:
+          repository: DavidPMCR/Backend-P-Investigacion
+          path: backend
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Instalar workload MAUI
+        run: dotnet workload install maui
+
+      - name: Restaurar y compilar backend
+        working-directory: ./backend
+        run: |
+          dotnet restore
+          dotnet build --no-restore
+
+      - name: Ejecutar backend en background
+        working-directory: ./backend
+        run: |
+          nohup dotnet run --no-build --urls "http://localhost:5275" --project api/api.csproj &
+          sleep 10
+
+      - name: Restaurar dependencias frontend
+        working-directory: ./MauiAppMovil
+        run: |
+          dotnet workload restore
+          dotnet restore
+
+      - name: Compilar frontend
+        working-directory: ./MauiAppMovil
+        run: dotnet build --no-restore
+
+      - name: Ejecutar tests frontend
+        working-directory: ./MauiAppMovil
+        run: dotnet test --no-build --verbosity normal
